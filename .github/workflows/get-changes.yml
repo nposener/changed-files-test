@@ -1,0 +1,34 @@
+name: Test changed files
+
+on:
+  pull_request:
+    branches:
+      - '**'
+      
+jobs:
+  changed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 'Detect'
+        id: detect
+        uses: tj-actions/changed-files@v36.0.3
+        with:
+          files: |
+            directory/**
+        
+      - name: 'Print'
+        id: print
+        run: |
+          echo "${{toJSON(steps.detect.outputs)}}"
+          
+      - name: 'Logic'
+        id: logic
+        if: |
+          (steps.detect.outputs.any_changed == 'true')
+        run: |
+          echo "ANY CHANGED"
