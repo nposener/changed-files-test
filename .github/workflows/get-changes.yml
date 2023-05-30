@@ -16,7 +16,7 @@ jobs:
 
       - name: 'Detect'
         id: detect
-        uses: tj-actions/changed-files@v36.0.3
+        uses: tj-actions/changed-files@v36.0.9
         with:
           files: |
             directory/**
